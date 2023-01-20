@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --watchAll",
-    "start": "nodemon src/app.js"
+    "start": "nodemon server.js"
   },
   "author": "Supparat Leelee",
   "license": "MIT",

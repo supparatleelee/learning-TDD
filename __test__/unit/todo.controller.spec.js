@@ -8,6 +8,8 @@ beforeAll(() => {
   // Arrange Global
   req = httpMocks.createRequest();
   res = httpMocks.createResponse();
+  Todo.create = jest.fn(); // STUB -> SPY -> MOCK
+  next = jest.fn();
 });
 
 describe('Todo controller : Create todo', () => {
@@ -41,7 +43,7 @@ describe('Todo controller : Create todo', () => {
     expect(Todo.create).toHaveBeenCalledWith(todo);
   });
 
-  it('should return status 201 ub response', () => {
+  it('should return status 201 when response', () => {
     req.body = todo;
 
     // Act
@@ -49,5 +51,40 @@ describe('Todo controller : Create todo', () => {
 
     // Assert
     expect(res.statusCode).toBe(201);
+  });
+
+  it('should end call', () => {
+    req.body = todo;
+    createTodo(req, res);
+    expect(res._isEndCalled()).toBeTruthy();
+  });
+
+  it('should return json in correct format when created success', async () => {
+    req.body = { ...todo };
+    Todo.create.mockReturnValue({ ...todo });
+    // let formatedResponse = {
+    //   message: 'created todo',
+    //   todo: { ...todo },
+    // };
+
+    await createTodo(req, res);
+
+    expect(res._getJSONData()).toEqual({ ...todo });
+  });
+
+  it('should handle error', async () => {
+    // Arrange - Set expectation
+    // const result = Todo.create.mockImplementation(() => true);
+
+    // expect(result()).toBe(true);
+
+    // set expectation
+    Todo.create.mockImplementation(() => Promise.reject({ message: 'cannot create' }));
+    // Arrange
+    req.body = todo;
+
+    await createTodo(req, res, next);
+
+    expect(next).toBeCalledWith({ message: 'cannot create' });
   });
 });
