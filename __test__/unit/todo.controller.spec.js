@@ -1,6 +1,7 @@
 const httpMocks = require('node-mocks-http');
 const { createTodo } = require('../../src/controller/todo.controller');
 const { Todo } = require('../../src/model');
+const todo = require('../mocks/todo.json');
 
 describe('Todo controller : Create todo', () => {
   it('should have todo.controller.createTodo as a function', () => {
@@ -19,5 +20,17 @@ describe('Todo controller : Create todo', () => {
 
     // Assert & Verify expectation
     expect(Todo.create).toHaveBeenCalled();
+  });
+
+  it('should call Todo.create with newTodo', () => {
+    let req = httpMocks.createRequest();
+    let res = httpMocks.createResponse();
+    req.body = todo;
+
+    Todo.create = jest.fn();
+
+    createTodo(req, res);
+
+    expect(Todo.create).toHaveBeenCalledWith(todo);
   });
 });
