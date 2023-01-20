@@ -1,4 +1,4 @@
-const { add, multiply, divide } = require('./math');
+const { add, multiply, divide, minus } = require('./math');
 
 test('the add function should return 4 when providing input 2, 2', () => {
   //   const result = add(2, 2);
@@ -44,3 +44,30 @@ test('should return cannot divide string when call divide function with 5, 0 - d
 // })
 
 // beforeEach(), afterAll(), afterEach()
+
+describe('Minus FN: TDD', () => {
+  // write test before coding = Document by examples
+  it('should have minus as a function', () => {
+    expect(typeof minus).toBe('function');
+  });
+
+  it('should return number', () => {
+    const result = minus();
+
+    expect(typeof result).toBe('number');
+  });
+
+  it('should return number when parameters are string', () => {
+    const result = minus('5', '4'); // passed
+    // const result = minus('5', 'A'); // failed
+
+    expect(result).toBeTruthy();
+  });
+
+  it('should return 1 when providing 5 minus 4 as parameters', () => {
+    let a = 5;
+    let b = 4;
+    const result = minus(a, b);
+    expect(result).toBe(a - b);
+  });
+});
