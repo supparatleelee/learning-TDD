@@ -1,4 +1,4 @@
-const { add } = require('./math');
+const { add, multiply, divide } = require('./math');
 
 test('the add function should return 4 when providing input 2, 2', () => {
   //   const result = add(2, 2);
@@ -17,3 +17,30 @@ test('the add function should return 4 when providing input 2, 2', () => {
 // npm i -g jest-cli
 // command: jest
 // command: jest --watchAll || "test": "jest --watchAll"
+
+test('multiply function', () => {
+  let input1 = 3;
+  let input2 = 2;
+  let result = multiply(input1, input2);
+  expect(result).toBe(input1 * input2);
+});
+
+test('should return cannot divide string when call divide function with 5, 0 - divide function: unhappy case', () => {
+  let input1 = 5;
+  let input2 = 0;
+  let expectTest = 'Cannot Divide';
+
+  let result = divide(input1, input2);
+
+  expect(result).toBe(expectTest);
+});
+
+// in() === test()
+// can put set of in()/test() in descibe()
+
+// beforeAll(() => {
+// let input1 = 2
+// let input2 = 12
+// })
+
+// beforeEach(), afterAll(), afterEach()
