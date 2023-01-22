@@ -1,7 +1,5 @@
-[
-  {
-    "id": 1,
-    "title": "Read Books",
-    "done": false
-  }
-]
+{
+  "id": 1,
+  "title": "Read Books",
+  "done": false
+}
